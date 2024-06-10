@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anestésicos Locais - Escolha Inteligente</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input,
+        select {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #calcular {
+            padding: 0.8em 1.5em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #resultados {
+            margin-top: 1em;
+        }
+
+        /* Estilos para as imagens */
+        .imagens {
+            display: flex;
+            justify-content: flex-start; /* Alinha as imagens à esquerda */
+        }
+
+        .imagem {
+            margin-right: 1em; /* Espaço entre as imagens */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Anestésicos Locais - Escolha Inteligente</h1>
+    </header>
+
+    <main>
+        <section id="anestesico">
+            <h2>Selecione o Anestésico</h2>
+            <select id="anestesico-select">
+                <option value="mepivacaína-3">Mepivacaína 3% (Curta Duração - 30 min)</option>
+                <option value="prilocaína-4-infiltracao">Prilocaína 4% (Curta Duração - 30 min - Infiltração)</option>
+                <option value="articaína-4-100000">Articaína 4% + Adrenalina 1:100.000 (Duração Intermediária - 60 min)</option>
+                <option value="articaína-4-200000">Articaína 4% + Adrenalina 1:200.000 (Duração Intermediária - 60 min)</option>
+                <option value="lidocaína-2-50000">Lidocaína 2% + Adrenalina 1:50.000 (Duração Intermediária - 60 min)</option>
+                <option value="lidocaína-2-100000">Lidocaína 2% + Adrenalina 1:100.000 (Duração Intermediária - 60 min)</option>
+                <option value="mepivacaína-2-20000">Mepivacaína 2% + Levonordefrina 1:20.000 (Duração Intermediária - 60 min)</option>
+                <option value="prilocaína-4-bloqueio">Prilocaína 4% (Duração Intermediária - 60 min - Bloqueio Nervoso)</option>
+                <option value="prilocaína-4-200000">Prilocaína 4% + Adrenalina 1:200.000 (Duração Intermediária - 60 min)</option>
+                <option value="bupivacaína-0.5-bloqueio">Bupivacaína 0,5% + Adrenalina 1:200.000 (Longa Duração - + de 90 min - Bloqueio Nervoso)</option>
+            </select>
+        </section>
+
+        <section id="paciente">
+            <h2>Dados do Paciente</h2>
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" min="1">
+        </section>
+
+        <section id="calculadora">
+            <button id="calcular">Calcular</button>
+            <div id="resultados">
+                <h3>Resultados:</h3>
+                <p>Anestésico recomendado: <span id="anestesico-recomendado"></span></p>
+                <p>Quantidade de tubetes: <span id="quantidade-tubetes"></span></p>
+                <p>Dose total administrada (mg): <span id="dose-total"></span></p>
+            </div>
+        </section>
+
+        <!-- Adicione as imagens aqui -->
+        <div class="imagens">
+            <img class="imagem" src="https://drive.google.com/uc?export=view&id=1ey9OyFmyueVhsVnGpD18W3WAkkYzxp9-" alt="Imagem 1">
+            <img class="imagem" src="https://drive.google.com/uc?export=view&id=1GysfRCef7zaN_I4hPcr-WcBf_OWv7bFf" alt="Imagem 2">
+        </div>
+    </main>
+
+    <script>
+        const anestesicoSelect = document.getElementById("anestesico-select");
+        const pesoInput = document.getElementById("peso");
+        const calcularButton = document.getElementById("calcular");
+        const anestesicoRecomendado = document.getElementById("anestesico-recomendado");
+        const quantidadeTubetes = document.getElementById("quantidade-tubetes");
+        const doseTotal = document.getElementById("dose-total");
+
+        // Dados dos anestésicos (substituir com seus dados reais)
+        const anestesiaData = {
+            "mepivacaína-3": {
+                "concentracao": 3,
+                "doseMaxima": 6.6,
+                "tubeteMg": 36 
+            },
+            "prilocaína-4-infiltracao": {
+                "concentracao": 4,
+                "doseMaxima": 8,
+                "tubeteMg": 36 
+            },
+            "articaína-4-100000": {
+                "concentracao": 4,
+                "doseMaxima": 7,
+                "tubeteMg": 36 
+            },
+            "articaína-4-200000": {
+                "concentracao": 4,
+                "doseMaxima": 7,
+                "tubeteMg": 36 
+            },
+            "lidocaína-2-50000": {
+                "concentracao": 2,
+                "doseMaxima": 7,
+                "tubeteMg": 36 
+            },
+            "lidocaína-2-100000": {
+                "concentracao": 2,
+                "doseMaxima": 7,
+                "tubeteMg": 36 
+            },
+            "mepivacaína-2-20000": {
+                "concentracao": 2,
+                "doseMaxima": 6.6,
+                "tubeteMg": 36 
+            },
+            "prilocaína-4-bloqueio": {
+                "concentracao": 4,
+                "doseMaxima": 8,
+                "tubeteMg": 36 
+            },
+            "prilocaína-4-200000": {
+                "concentracao": 4,
+                "doseMaxima": 8,
+                "tubeteMg": 36 
+            },
+            "bupivacaína-0.5-bloqueio": {
+                "concentracao": 0.5,
+                "doseMaxima": 90,
+                "tubeteMg": 18 
+            }
+        };
+
+        calcularButton.addEventListener("click", () => {
+            const anestesico = anestesicoSelect.value;
+            const peso = parseFloat(pesoInput.value);
+
+            if (peso <= 0) {
+                alert("Por favor, insira um peso válido.");
+                return;
+            }
+
+            // Obter dados do anestésico selecionado
+            const anestesia = anestesiaData[anestesico];
+
+            // Calcular a dose total e a quantidade de tubetes
+            const doseMaximaMg = anestesia.doseMaxima * peso;
+            const doseTotalMg = doseMaximaMg; // Ajustar para a dose real necessária
+            const quantidadeTubetesNecessarios = Math.floor(doseTotalMg / anestesia.tubeteMg); // Arredonda para baixo
+
+            // Exibir os resultados
+            anestesicoRecomendado.textContent = anestesico;
+            quantidadeTubetes.textContent = quantidadeTubetesNecessarios;
+            doseTotal.textContent = doseTotalMg.toFixed(2); 
+        });
+    </script>
+</body>
+</html>
